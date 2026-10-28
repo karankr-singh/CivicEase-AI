@@ -45,7 +45,7 @@ The serverless handler is `api/explain.js`. It calls the Google Gemini API. The 
 | Variable | Required | Purpose |
 | --- | --- | --- |
 | `GEMINI_API_KEY` | Yes, for live AI | Secret key from Google AI Studio; server-side only |
-| `GEMINI_MODEL` | No | Model override; default is `gemini-flash-latest` |
+| `GEMINI_MODEL` | No | Model override; default is `gemini-3.5-flash-lite` |
 | `VITE_AI_ENDPOINT` | No | Optional frontend endpoint override; not a secret |
 
 **Never put the API key in a `VITE_*` variable, frontend code, or GitHub.** Vite exposes `VITE_*` variables to browser code.
@@ -57,7 +57,7 @@ The endpoint limits notice input to 8,000 characters, uses a request timeout and
 1. Open [Vercel](https://vercel.com/) and import this repository.
 2. In the project, open **Settings → Environment Variables**.
 3. Add `GEMINI_API_KEY` with the API key from Google AI Studio. Select **Production** and **Preview** (and **Development** if needed).
-4. Optionally add `GEMINI_MODEL` with value `gemini-flash-latest`.
+4. Optionally add `GEMINI_MODEL` with value `gemini-3.5-flash-lite` to override the default.
 5. Save the variables and trigger a **new deployment** so the settings take effect.
 6. Open the deployed site, visit **Document Explainer**, paste a real notice (remove personal details), and run the explanation. Verify it is using live AI rather than the fallback.
 
