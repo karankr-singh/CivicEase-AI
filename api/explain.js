@@ -41,10 +41,10 @@ export default async function handler(req, res) {
   if (text.length > MAX_LEN) return res.status(413).json({ error: `Text is over ${MAX_LEN} characters.` });
   const lang = language === 'hi' ? 'Hindi' : 'English';
   const style = level === 'bullets' ? 'short bullet-style fragments' : 'very simple sentences';
-  const model = process.env.GEMINI_MODEL || 'gemini-flash-latest';
+  const model = process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite';
 
   const ctl = new AbortController();
-  const timer = setTimeout(() => ctl.abort(), 25000);
+  const timer = setTimeout(() => ctl.abort(), 50000);
   try {
     const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
       method: 'POST',
@@ -53,7 +53,7 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: SYSTEM }] },
         contents: [{ role: 'user', parts: [{ text: `Write the "text" fields in ${lang}, using ${style}. Keep "quote" exactly as in the notice.\n\n<notice>\n${text}\n</notice>` }] }],
-        generationConfig: { temperature: 0.1, maxOutputTokens: 1800, responseMimeType: 'application/json' }
+        generationConfig: { temperature: 0.1, maxOutputTokens: 1000, responseMimeType: 'application/json' }
       })
     });
     if (r.status === 429) return res.status(429).json({ error: 'Gemini free-tier rate limit reached. Wait a little and try again.' });
