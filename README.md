@@ -91,4 +91,4 @@ The frontend can be built using `npm run build` and published from `dist`. The A
 - **Hackathon:** Engage 6.0
 - **Theme:** Better Communities, Better Governance
 - **Team:** Ctrl Alt Elite
-- **Team Members:** karan , chirag , chirag yadav , amit pandey 
+- **Team Members:** Karan , Chirag , Chirag Yadav , Amit Pandey ..
