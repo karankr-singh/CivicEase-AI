@@ -48,7 +48,7 @@ The serverless handler is `api/explain.js`. It calls the Google Gemini API. The 
 | `GEMINI_MODEL` | No | Model override; default is `gemini-3.5-flash-lite` |
 | `VITE_AI_ENDPOINT` | No | Optional frontend endpoint override; not a secret |
 
-**Never put the API key in a `VITE_*` variable, frontend code, or GitHub.** Vite exposes `VITE_*` variables to browser code.
+**Never put the API, key in a `VITE_*` variable, frontend code, or GitHub.** Vite exposes `VITE_*` variables to browser code.
 
 The endpoint limits notice input to 8,000 characters, uses a request timeout and a best-effort per-instance rate limit, and does not log notice text. These measures are prototype-level safeguards, not production-grade abuse prevention. If AI fails, the app reports the error and falls back to rule-based extraction. Always check the result against the original notice.
 
@@ -87,7 +87,7 @@ The frontend can be built using `npm run build` and published from `dist`. The A
 
 ## Project details
 
-- **Project:** CivicEase AI
+- **Project:** CivicEase AI 
 - **Hackathon:** Engage 6.0
 - **Theme:** Better Communities, Better Governance
 - **Team:** Ctrl Alt Elite
