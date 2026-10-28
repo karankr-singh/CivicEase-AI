@@ -38,7 +38,7 @@ export async function explain({ text, language, level, offline }) {
   if (!offline) {
     const endpoint = import.meta.env.VITE_AI_ENDPOINT || '/api/explain';
     const ctl = new AbortController();
-    const timer = setTimeout(() => ctl.abort(), 30000);
+    const timer = setTimeout(() => ctl.abort(), 55000);
     try {
       const res = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text, language, level }), signal: ctl.signal });
       if (!res.ok) {
