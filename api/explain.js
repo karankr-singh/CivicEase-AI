@@ -41,7 +41,7 @@ export default async function handler(req, res) {
   if (text.length > MAX_LEN) return res.status(413).json({ error: `Text is over ${MAX_LEN} characters.` });
   const lang = language === 'hi' ? 'Hindi' : 'English';
   const style = level === 'bullets' ? 'short bullet-style fragments' : 'very simple sentences';
-  const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+  const model = process.env.GEMINI_MODEL || 'gemini-flash-latest';
 
   const ctl = new AbortController();
   const timer = setTimeout(() => ctl.abort(), 25000);
@@ -57,7 +57,17 @@ export default async function handler(req, res) {
       })
     });
     if (r.status === 429) return res.status(429).json({ error: 'Gemini free-tier rate limit reached. Wait a little and try again.' });
-    if (!r.ok) return res.status(502).json({ error: `Gemini API error (${r.status}). Check the API key, model and AI Studio quota.` });
+    if (!r.ok) {
+      let detail = '';
+      try {
+        const err = await r.json();
+        detail = err?.error?.message || err?.error?.status || '';
+      } catch { /* provider did not return JSON */ }
+      // Provider error details help diagnose model/key/project configuration; never include the API key.
+      return res.status(502).json({
+        error: `Gemini API error (${r.status})${detail ? `: ${detail.slice(0, 300)}` : ''}`
+      });
+    }
     const data = await r.json();
     const raw = (data.candidates?.[0]?.content?.parts || []).map((p) => p.text || '').join('');
     let parsed;
