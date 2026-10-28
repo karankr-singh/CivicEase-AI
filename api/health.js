@@ -1,4 +1,4 @@
-// Reports only whether a server key exists. Never returns the key.
+// Reports only whether the Gemini server key exists. Never returns the key.
 export default function handler(req, res) {
-  res.status(200).json({ ai: Boolean(process.env.ANTHROPIC_API_KEY) });
+  res.status(200).json({ ai: Boolean(process.env.GEMINI_API_KEY) });
 }
